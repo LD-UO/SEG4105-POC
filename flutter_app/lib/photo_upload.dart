@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'ai_preview.dart';
+import 'models/ai_result.dart';
+import 'services/upload_service.dart';
 
 class PhotoUploadPage extends StatefulWidget {
   const PhotoUploadPage({super.key});
@@ -13,6 +15,8 @@ class PhotoUploadPage extends StatefulWidget {
 class _PhotoUploadPageState extends State<PhotoUploadPage> {
   final ImagePicker _picker = ImagePicker();
   File? _imageFile;
+  bool _isUploading = false;
+  late final UploadService _service = UploadService(baseUrl: 'mock');
 
   Future<void> _pickImage(ImageSource source) async {
     try {
@@ -23,18 +27,47 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
         imageQuality: 85,
       );
       if (picked == null) return;
-      
-      // Navigate to AI Preview page with selected image
-      if (!mounted) return;
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (_) => AIPreviewPage(imageFile: File(picked.path)),
-        ),
-      );
+      setState(() {
+        _imageFile = File(picked.path);
+      });
+
+      await _analyzeAndNavigate(_imageFile!);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error picking image: $e')),
       );
+    }
+  }
+
+  Future<void> _analyzeAndNavigate(File image) async {
+    setState(() {
+      _isUploading = true;
+    });
+
+    try {
+      final AiResult result = await _service.uploadAndAnalyze(image);
+      if (!context.mounted) return;
+
+      await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => AIPreviewPage(
+            imageFile: image,
+            result: result,
+            uploadService: _service,
+          ),
+        ),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Upload failed: $e')),
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isUploading = false;
+        });
+      }
     }
   }
 
@@ -85,6 +118,10 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
                 ),
               ],
             ),
+            if (_isUploading) ...[
+              const SizedBox(height: 12),
+              const LinearProgressIndicator(),
+            ],
           ],
         ),
       ),
