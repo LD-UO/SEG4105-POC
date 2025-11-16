@@ -102,10 +102,14 @@ class _AIPreviewPageState extends State<AIPreviewPage> {
             ],
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('AI processing complete.')),
                 );
+                await Future.delayed(const Duration(seconds: 3));
+                if (!mounted) return;
+                // Return to the photo selection/upload screen.
+                Navigator.of(context).pop();
               },
               child: const Text('Confirm'),
             ),

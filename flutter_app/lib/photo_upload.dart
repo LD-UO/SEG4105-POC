@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'ai_preview.dart';
+import 'config.dart';
 import 'models/ai_result.dart';
 import 'services/upload_service.dart';
 
@@ -16,7 +17,7 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
   final ImagePicker _picker = ImagePicker();
   File? _imageFile;
   bool _isUploading = false;
-  late final UploadService _service = UploadService(baseUrl: 'mock');
+  late final UploadService _service = UploadService(baseUrl: backendBaseUrl);
 
   Future<void> _pickImage(ImageSource source) async {
     try {

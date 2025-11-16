@@ -23,7 +23,7 @@ class UploadService {
           Ingredient(name: 'Butter', grams: 125.5),
           Ingredient(name: 'Eggs', grams: 120.0),
         ],
-        message: 'Mocked AI result',
+        message: 'AI Response',
         analysisId: 'mock-analysis-1',
       );
     }
