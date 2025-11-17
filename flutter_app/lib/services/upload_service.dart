@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import '../models/ai_result.dart';
 import '../models/ingredient.dart';
 
+String _ts() => DateTime.now().toIso8601String();
+
 class UploadService {
   UploadService({required this.baseUrl});
 
