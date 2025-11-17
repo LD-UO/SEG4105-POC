@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'account_creation_screen.dart';
 import 'photo_upload.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -29,6 +30,12 @@ class _AuthScreenState extends State<AuthScreen> {
   void _showComingSoon(String label) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('$label not wired (POC).')),
+    );
+  }
+
+  void _goToRegister() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const AccountCreationScreen()),
     );
   }
 
@@ -141,7 +148,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
                 const SizedBox(width: 16),
                 ElevatedButton(
-                  onPressed: () => _showComingSoon('Register'),
+                  onPressed: _goToRegister,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black87,
                     padding: const EdgeInsets.symmetric(
