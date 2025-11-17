@@ -14,20 +14,7 @@ class UploadService {
 
   final String baseUrl;
 
-  /// Simple ping endpoint to verify connectivity with backend/AWS.
-  Future<String> ping() async {
-    if (baseUrl == 'mock') {
-      await Future.delayed(const Duration(milliseconds: 200));
-      return 'mock pong';
-    }
-
-    final uri = Uri.parse('$baseUrl/ping');
-    final response = await http.get(uri);
-    if (response.statusCode != 200) {
-      throw Exception('Ping failed ${response.statusCode}: ${response.body}');
-    }
-    return response.body.isEmpty ? 'ok' : response.body;
-  }
+  String _ts() => DateTime.now().toIso8601String();
 
   Future<AiResult> uploadAndAnalyze(File image) async {
     // Mocked path: skip network and return fixed payload after a short delay.
