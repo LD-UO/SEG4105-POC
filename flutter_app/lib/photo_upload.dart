@@ -58,6 +58,11 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
           ),
         ),
       );
+      if (mounted) {
+        setState(() {
+          _imageFile = null;
+        });
+      }
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(

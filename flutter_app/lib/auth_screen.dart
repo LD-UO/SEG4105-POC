@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'account_creation_screen.dart';
-import 'photo_upload.dart';
+import 'logged_in_home.dart';
+import 'history_screen.dart';
+import 'stats_today_screen.dart';
+import 'stats_trends_screen.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -23,7 +26,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
   void _goToUpload() {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const PhotoUploadPage()),
+      MaterialPageRoute(builder: (_) => const LoggedInHome()),
     );
   }
 
@@ -36,6 +39,24 @@ class _AuthScreenState extends State<AuthScreen> {
   void _goToRegister() {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (_) => const AccountCreationScreen()),
+    );
+  }
+
+  void _goToStatsToday() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const StatsTodayScreen()),
+    );
+  }
+
+  void _goToStatsTrends() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const StatsTrendsScreen()),
+    );
+  }
+
+  void _goToHistory() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const HistoryScreen()),
     );
   }
 
@@ -157,6 +178,36 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                   ),
                   child: const Text('Register'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            Wrap(
+              spacing: 12,
+              children: [
+                ElevatedButton(
+                  onPressed: _goToStatsToday,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                  ),
+                  child: const Text('Stats Today'),
+                ),
+                ElevatedButton(
+                  onPressed: _goToStatsTrends,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                  ),
+                  child: const Text('Stats Trends'),
+                ),
+                ElevatedButton(
+                  onPressed: _goToHistory,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                  ),
+                  child: const Text('History'),
                 ),
               ],
             ),
