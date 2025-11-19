@@ -106,7 +106,6 @@ class _AIPreviewPageState extends State<AIPreviewPage> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('AI processing complete.')),
                 );
-                await Future.delayed(const Duration(seconds: 3));
                 if (!mounted) return;
                 // Return to the photo selection/upload screen.
                 Navigator.of(context).pop();
