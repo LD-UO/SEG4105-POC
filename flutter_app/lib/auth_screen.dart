@@ -181,36 +181,36 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 24),
-            Wrap(
-              spacing: 12,
-              children: [
-                ElevatedButton(
-                  onPressed: _goToStatsToday,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                  ),
-                  child: const Text('Stats Today'),
-                ),
-                ElevatedButton(
-                  onPressed: _goToStatsTrends,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                  ),
-                  child: const Text('Stats Trends'),
-                ),
-                ElevatedButton(
-                  onPressed: _goToHistory,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                  ),
-                  child: const Text('History'),
-                ),
-              ],
-            ),
+            // const SizedBox(height: 24),
+            // Wrap(
+            //   spacing: 12,
+            //   children: [
+            //     ElevatedButton(
+            //       onPressed: _goToStatsToday,
+            //       style: ElevatedButton.styleFrom(
+            //         backgroundColor: Colors.red,
+            //         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            //       ),
+            //       child: const Text('Stats Today'),
+            //     ),
+            //     ElevatedButton(
+            //       onPressed: _goToStatsTrends,
+            //       style: ElevatedButton.styleFrom(
+            //         backgroundColor: Colors.red,
+            //         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            //       ),
+            //       child: const Text('Stats Trends'),
+            //     ),
+            //     ElevatedButton(
+            //       onPressed: _goToHistory,
+            //       style: ElevatedButton.styleFrom(
+            //         backgroundColor: Colors.red,
+            //         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            //       ),
+            //       child: const Text('History'),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),
