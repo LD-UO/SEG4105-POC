@@ -10,9 +10,10 @@ import '../models/ingredient.dart';
 String _ts() => DateTime.now().toIso8601String();
 
 class UploadService {
-  UploadService({required this.baseUrl});
+  UploadService({required this.baseUrl, http.Client? client}) : client = client ?? http.Client();
 
   final String baseUrl;
+  final http.Client client; // injected client for testability
 
   String _ts() => DateTime.now().toIso8601String();
 
@@ -39,7 +40,7 @@ class UploadService {
     final request = http.MultipartRequest('POST', uri)
       ..files.add(await http.MultipartFile.fromPath('file', image.path));
 
-    final streamed = await request.send();
+    final streamed = await client.send(request);
     final response = await http.Response.fromStream(streamed);
     debugPrint('[${_ts()}] /analyze status=${response.statusCode}');
     if (response.statusCode != 200) {
@@ -60,7 +61,7 @@ class UploadService {
 
     final uri = Uri.parse('$baseUrl/feedback');
     debugPrint('[${_ts()}] POST $uri liked=$liked');
-    final response = await http.post(
+    final response = await client.post(
       uri,
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({'id': analysisId, 'liked': liked}),
